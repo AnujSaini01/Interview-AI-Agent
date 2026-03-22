@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const getCurrentUser = async (req, res) => {
     try {
-        let { token } = req.cookies;
+        let token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(" ")[1]);
         if (!token) return res.status(200).json(null);
 
         const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
