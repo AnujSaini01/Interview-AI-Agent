@@ -1,4 +1,3 @@
-import fs from "fs";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { askAi } from "../services/openRouter.service.js";
 import User from "../models/user.model.js";
@@ -10,10 +9,8 @@ export const analyzeResume = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "Please upload resume" });
     }
-    const filepath = req.file.path;
 
-    const fileBuffer = await fs.promises.readFile(filepath);
-    const uint8Array = new Uint8Array(fileBuffer);
+    const uint8Array = new Uint8Array(req.file.buffer);
 
     const pdf = await pdfjsLib.getDocument({ 
       data: uint8Array,
@@ -66,10 +63,6 @@ export const analyzeResume = async (req, res) => {
       return res.status(500).json({ message: "AI returned invalid format" });
     }
 
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
-    }
-
     return res.json({
       role: parsed.role || "",
       experience: parsed.experience || "",
@@ -79,14 +72,6 @@ export const analyzeResume = async (req, res) => {
     });
   } catch (error) {
     console.error("Error in analyzeResume:", error);
-
-    if (req.file && fs.existsSync(req.file.path)) {
-      try {
-        fs.unlinkSync(req.file.path);
-      } catch (unlinkError) {
-        console.error("Error unlinking file:", unlinkError);
-      }
-    }
 
     return res.status(500).json({ message: `Internal server error: ${error.message}` });
   }
