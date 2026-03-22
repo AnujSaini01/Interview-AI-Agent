@@ -23,7 +23,6 @@ function App() {
         console.log(result.data)
 
       } catch (error) {
-        console.log(error)
         dispatch(setUserData(null))
       }
     }
