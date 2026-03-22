@@ -15,7 +15,11 @@ export const analyzeResume = async (req, res) => {
     const fileBuffer = await fs.promises.readFile(filepath);
     const uint8Array = new Uint8Array(fileBuffer);
 
-    const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise;
+    const pdf = await pdfjsLib.getDocument({ 
+      data: uint8Array,
+      isEvalAndSharedArrayBufferSupported: false,
+      useSystemFonts: true
+    }).promise;
 
     let resumeText = "";
 
@@ -59,14 +63,14 @@ export const analyzeResume = async (req, res) => {
       parsed = JSON.parse(cleanOutput);
     } catch (parseError) {
       console.error("Failed to parse AI response as JSON:", cleanOutput);
-      throw new Error("AI returned invalid data format. Please try again.");
+      return res.status(500).json({ message: "AI returned invalid format" });
     }
 
     if (fs.existsSync(filepath)) {
       fs.unlinkSync(filepath);
     }
 
-    res.json({
+    return res.json({
       role: parsed.role || "",
       experience: parsed.experience || "",
       projects: parsed.projects || [],
@@ -84,7 +88,7 @@ export const analyzeResume = async (req, res) => {
       }
     }
 
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: `Internal server error: ${error.message}` });
   }
 };
 

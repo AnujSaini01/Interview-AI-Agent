@@ -192,7 +192,7 @@ function Step1SetUp ({ onStart }) {
             </div>
             <select
               value={mode}
-              onChange={(e) => setMode(e.target)}
+              onChange={(e) => setMode(e.target.value)}
               className="w-full py-3 px-4 border
                 border-gray-200 rounded-xl focus-ring-2 focus:ring-green-500
                 outline-none transition"
