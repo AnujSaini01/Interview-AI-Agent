@@ -22,7 +22,6 @@ function Navbar() {
         try {
             await axios.get(ServerUrl + "/api/auth/logout",
                 { withCredentials: true })
-            localStorage.removeItem("token");
             dispatch(setUserData(null))
             setShowCreditPopup(false)
             setShowUserPopup(false)

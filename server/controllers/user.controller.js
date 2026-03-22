@@ -14,7 +14,8 @@ export const getCurrentUser = async (req, res) => {
         if (!user) {
             return res.status(200).json(null);
         }
-        return res.status(200).json(user);
+        const userData = user.toObject ? user.toObject() : user;
+        return res.status(200).json({ ...userData, token });
 
     } catch (error) {
         return res.status(200).json(null);

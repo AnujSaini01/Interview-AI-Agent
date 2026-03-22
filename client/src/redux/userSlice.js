@@ -8,8 +8,12 @@ const userSlice = createSlice({
     },
     reducers: {
         setUserData: (state, action) => {
-            state.userData = action.payload
-
+            state.userData = action.payload;
+            if (action.payload && action.payload.token) {
+                localStorage.setItem("token", action.payload.token);
+            } else if (action.payload === null) {
+                localStorage.removeItem("token");
+            }
         }
     }
 })
