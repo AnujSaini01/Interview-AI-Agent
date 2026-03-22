@@ -71,9 +71,12 @@ export const analyzeResume = async (req, res) => {
       resumeText,
     });
   } catch (error) {
-    console.error("Error in analyzeResume:", error);
+    console.error("FULL ERROR IN ANALYZE_RESUME:", error);
 
-    return res.status(500).json({ message: `Internal server error: ${error.message}` });
+    return res.status(500).json({ 
+      message: `Internal server error: ${error.message}`,
+      stack: error.stack 
+    });
   }
 };
 
