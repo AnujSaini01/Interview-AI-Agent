@@ -54,7 +54,8 @@ function Step1SetUp ({ onStart }) {
         setAnalyzing(false);
       }, 0);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error.response?.data?.message || "Failed to analyze resume");
       setAnalyzing(false);
     }
   };
@@ -86,7 +87,8 @@ function Step1SetUp ({ onStart }) {
         onStart(result.data);
       }, 0);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error.response?.data?.message || "Failed to start interview");
       setLoading(false);
     }
   };

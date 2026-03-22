@@ -247,7 +247,8 @@ function Step2Interview({ interviewData, onFinish }) {
       speakText(result.data.feedback);
       setIsSubmitting(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error.response?.data?.message || "Failed to submit answer");
       setIsSubmitting(false);
     }
   };
@@ -281,7 +282,8 @@ function Step2Interview({ interviewData, onFinish }) {
       console.log(result.data);
       onFinish(result.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error.response?.data?.message || "Failed to finish interview");
     }
   };
 
