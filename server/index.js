@@ -23,6 +23,6 @@ app.use("/api/interview",interviewRouter)
 
 const PORT = process.env.PORT || 6000
 app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`)
+      console.log(`Server running on port ${PORT} [MEMORY_STORAGE_ACTIVE]`)
       connectDB()
     })
