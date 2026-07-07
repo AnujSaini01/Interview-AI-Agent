@@ -46,7 +46,7 @@ function Auth({ isModel = false }) {
                     <div className='bg-black text-white p-2 rounded-lg'>
                         <RiRobot3Fill size={18} />
                     </div>
-                    <h2 className='font-semibold text-lg'>InterViewIQ.AI</h2>
+                    <h2 className='font-semibold text-lg'>AI Interviewer</h2>
                 </div>
 
                 <h1 className='text-2xl md:text-3xl font-semibold text-center leading-snug mb-4'>

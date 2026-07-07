@@ -45,7 +45,7 @@ function Navbar() {
 
                     </div>
                     <h1 className='font-semibold hidden md:block 
-                    text-lg'>InterViewIQ.AI</h1>
+                    text-lg'>AI Interviewer</h1>
                 </div>
 
                 <div className='flex items-center gap-6 relative'>
